@@ -1,54 +1,48 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class player {
-    Scanner scanner = new Scanner(System.in);
+public class Player {
+
+    public int[][] fieldWithShips;
+
+    public int[][] fieldOfShots;
+
+    public FieldOfShots fieldShots;
+    public FieldOfShips fieldShips;
+
+    public int playerscore;
+    public static ArrayList<Ship> listOfShips;
+    public static int[] aliveShips;
     public String name;
-    public int player1ships[][];
-    public int player1shots[][];
-    public int player1score;
 
-    public static void put_ships(){
-        Scanner scanner = new Scanner(System.in);
-        int[][] ships = new int[10][];
-        int k = 0;
-        for(int i = 1; i < 5; i++){
-            int size_of_ship = 5 - i;
-            System.out.println(size_of_ship);
-            int[] coord = new int[i];
-            for(int j = 0; j < size_of_ship; j++){
-                System.out.println("Укажите x координату клетки корабля длины " + size_of_ship);
-                int x = scanner.nextInt();
-                System.out.println("Укажите y координату клетки корабля длины " + size_of_ship);
-                int y = scanner.nextInt();
-                coord[j] = 10*x + y;
-            }
+    public Player(){
+        fieldShips = new FieldOfShips();
+        fieldShots = new FieldOfShots();
 
+        fieldWithShips = fieldShips.field;
+        fieldOfShots = fieldShots.field;
+        aliveShips = fieldShips.aliveShips;
+        listOfShips = fieldShips.listOfShips;
 
-            ships[k] = coord;
-            k ++;
-        }
-
-        for (int a = 0; a < ships.length; a++) {
-            for (int b = 0; b < ships[a].length; b++) {
-                System.out.print(ships[a][b]+ " ");
-            }
-            System.out.println(" ");
-        }
+        playerscore = 0;
     }
 
-    public player(String name){
-        this.name = scanner.nextLine();
-        //this.ships = ships;
+    public String getName() {
+        return name;
     }
 
+    public int getNomOfShipFromCoord(int x, int y){
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < listOfShips.get(i).getCoords().length; j++) {
+                if(listOfShips.get(i).getCoords()[j][0] == x && listOfShips.get(i).getCoords()[j][1] == y){
+                    return i;
+                }
+            }
+        }
+        return x;
+    }
 
-    public static void shoot(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Укажите x координату выстрела");
-        int x = scanner.nextInt();
-        System.out.println("Укажите y координату выстрела");
-        int y = scanner.nextInt();
-
-
+    public void setName(String name) {
+        this.name = name;
     }
 }
